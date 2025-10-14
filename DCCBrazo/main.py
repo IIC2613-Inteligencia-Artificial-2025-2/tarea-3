@@ -23,7 +23,7 @@ obs_info = create_obstacles(OBS_POS, OBS_RADIUS)
 robot = RobotState(L1, L2, obs_info)
 
 if alg_name == "astar":
-    alg = AStar(robot, weight=1)    # TODO: Cambiar weight para actividad 3
+    alg = AStar(robot, weight=1)    # TODO: Cambiar weight para actividad 4
 elif alg_name == "bfs":
     alg = BFS(robot)
 elif alg_name == "ara":

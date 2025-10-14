@@ -1,3 +1,5 @@
+import random
+
 # minimax.py
 NEG_INF = float("-inf")
 POS_INF = float("inf")
@@ -29,6 +31,10 @@ def minimax(game, player_id, fixed_player_id, depth, max_player, use_alphabeta, 
 
     # Generar movimientos
     moves = game.get_all_moves()
+
+    # Agregar aleatoriedad
+    random.shuffle(moves)
+    
     if not moves:
         # Si no hay jugadas no formzamos derrota, sino que la heurística decide
         return _eval_terminal_or_heur(game, fixed_player_id, eval_function), None

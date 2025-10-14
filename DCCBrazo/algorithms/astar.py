@@ -3,12 +3,14 @@ from algorithms.binary_heap import BinaryHeap
 from trig import heuristic_trig
 from consts import L1, L2
 import time
+import itertools
 
 class AStar:
     def __init__(self, robot, heuristic = heuristic_trig, weight = 1.0):
         self.robot = robot
         self.h = heuristic
         self.weight = weight
+        self.counter = itertools.count()
 
     def _f(self, g, h):
         return g + self.weight*h         
@@ -24,7 +26,7 @@ class AStar:
         n0 = Node(start_state)
         n0.g = 0
         n0.h = self.h(start_state, goal, L1, L2)
-        n0.key = self._f(n0.g, n0.h)
+        n0.key = (self._f(n0.g, n0.h), n0.g, next(self.counter))
         self.open.insert(n0)
         self.generated[start_state] = n0
         self.best_g[start_state] = 0
@@ -57,7 +59,7 @@ class AStar:
                     self.best_g[s2] = g2
                     m.parent = n
                     m.g = g2
-                    m.key = self._f(m.g, m.h)
+                    m.key = (self._f(m.g, m.h), m.g, next(self.counter))
                     self.open.insert(m) 
 
         return None, self.expansions, time.process_time() - t
